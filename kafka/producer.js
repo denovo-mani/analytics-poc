@@ -23,26 +23,42 @@ async function produce() {
     const producer = kafka.producer();
     await producer.connect();
     console.log("Producer connected");
-
-    const producedData = await producer.send({
-        topic: CLOUDKARAFKA_TOPIC,
-        messages: [
-            {
-                value: JSON.stringify({
-                    transactionId: uuidv4(),
-                    customerId: getRandom("Customer", 10),
-                    ownerId: getRandom("OwnerId", 10),
-                    channel: getRandom("Channel", 4),
-                    deviceType: getRandom("Device Type", 4),
-                    tpn: getRandom("TPN", 1000),
-                    amount: getRandomAmount(),
-                    transactionDate: generateRandomDate(),
-                }),
-                partition: CLOUDKARAFKA_PARTITION
-            },
-        ],
-    });
-    console.log(`Produced data ${JSON.stringify(producedData)}`);
+    let index = 1;
+    // after the produce has connected, we start an interval timer
+    if (index <= 1100000) {
+        setInterval(async () => {
+            try {
+                for (let i = 1; i <= 12; i++) {
+                    const producedData = await producer.send({
+                        topic: CLOUDKARAFKA_TOPIC,
+                        messages: [
+                            {
+                                value: JSON.stringify({
+                                    transactionId: uuidv4(),
+                                    customerId: getRandom("Customer", 10),
+                                    ownerId: getRandom("OwnerId", 10),
+                                    channel: getRandom("Channel", 4),
+                                    deviceType: getRandom("Device Type", 4),
+                                    tpn: getRandom("TPN", 1000),
+                                    amount: getRandomAmount(),
+                                    transactionDate: generateRandomDate(),
+                                    index: index,
+                                }),
+                                partition: CLOUDKARAFKA_PARTITION
+                            },
+                        ],
+                    });
+                    // if the message is written successfully, log it and increment `i`
+                    console.log(`Produced ${index} data ${JSON.stringify(producedData)}`);
+                    index++;
+                }
+            } catch (err) {
+                console.error("could not write message " + err)
+            }
+        }, 1000);
+    } else {
+        console.log("Done");
+    }
 }
 
 getRandom = (name = "Sample", count = 0) => {
@@ -73,8 +89,7 @@ randomDate = (start, end, startHour, endHour) => {
     return date;
 }
 
-setInterval(() => {
-    produce();
-    // console.log(generateRandomDate());
-}, 1000);
 
+
+produce();
+// console.log(generateRandomDate());

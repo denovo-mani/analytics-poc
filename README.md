@@ -9,7 +9,9 @@ docker-compose up -d
 
 http://localhost:8888
 
-http://3.88.194.150:8888
+Druid UI: http://18.232.169.254:8888
+
+Analytics UI: http://18.232.169.254:5000
 
 docker-compose down
 docker volume prune
@@ -76,6 +78,7 @@ https://github.com/apache/druid/blob/0.22.0/distribution/docker/docker-compose.y
 
 CORS: https://druid.apache.org/docs/latest/design/auth.html
 
+Memory: https://druid.apache.org/docs/latest/operations/basic-cluster-tuning.html
 
 # Linus
 chrome --disable-web-security --user-data-dir=~/chromeTemp
