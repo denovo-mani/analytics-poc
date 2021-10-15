@@ -15,3 +15,13 @@ https://www.sohamkamani.com/nodejs/working-with-kafka/
 transactions
 
 pm2 start producer.js --name "Kafka Producer"
+
+git pull origin develop
+docker-compose up
+docker-compose up -d
+docker-compose down
+docker volume prune
+
+docker exec -it zookeeper1 /bin/bash
+
+docker image prune -a

@@ -1,13 +1,13 @@
 const { Kafka, logLevel } = require('kafkajs');
 const { v4: uuidv4 } = require('uuid');
 const faker = require('faker');
-const { CLOUDKARAFKA_PARTITION, CLOUDKARAFKA_TOPIC, CLOUDKARAFKA_BROKERS, CLOUDKARAFKA_USERNAME, CLOUDKARAFKA_PASSWORD, CLOUDKARAFKA_CLIENT_ID } = require("./config.js");
+const { CLOUD_KAFKA_MAX_PARTITION, CLOUD_KAFKA_TOPIC, CLOUD_KAFKA_BROKERS, CLOUD_KAFKA_USERNAME, CLOUD_KAFKA_PASSWORD, CLOUD_KAFKA_CLIENT_ID } = require("./config.js");
 
 // 4oxw1lld-default
 async function produce() {
     const kafka = new Kafka({
-        clientId: CLOUDKARAFKA_CLIENT_ID,
-        brokers: CLOUDKARAFKA_BROKERS,
+        clientId: CLOUD_KAFKA_CLIENT_ID,
+        brokers: CLOUD_KAFKA_BROKERS,
         // connectionTimeout: 3000,
         // requestTimeout: 25000,
         // logLevel: logLevel.ERROR,
@@ -15,8 +15,8 @@ async function produce() {
         // ssl: true,
         // sasl: {
         //     mechanism: 'scram-sha-256', // plain, scram-sha-256 or scram-sha-512
-        //     username: CLOUDKARAFKA_USERNAME,
-        //     password: CLOUDKARAFKA_PASSWORD,
+        //     username: CLOUD_KAFKA_USERNAME,
+        //     password: CLOUD_KAFKA_PASSWORD,
         // },
     });
 
@@ -28,9 +28,9 @@ async function produce() {
     if (index <= 1100000) {
         setInterval(async () => {
             try {
-                for (let i = 1; i <= 12; i++) {
+                for (let i = 1; i <= 100; i++) {
                     const producedData = await producer.send({
-                        topic: CLOUDKARAFKA_TOPIC,
+                        topic: CLOUD_KAFKA_TOPIC,
                         messages: [
                             {
                                 value: JSON.stringify({
@@ -44,7 +44,7 @@ async function produce() {
                                     transactionDate: generateRandomDate(),
                                     index: index,
                                 }),
-                                partition: CLOUDKARAFKA_PARTITION
+                                partition: Math.floor(Math.random() * CLOUD_KAFKA_MAX_PARTITION)
                             },
                         ],
                     });
@@ -88,8 +88,6 @@ randomDate = (start, end, startHour, endHour) => {
     date.setHours(hour);
     return date;
 }
-
-
 
 produce();
 // console.log(generateRandomDate());
