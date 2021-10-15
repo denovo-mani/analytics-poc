@@ -13,8 +13,16 @@ Druid UI: http://18.232.169.254:8888
 
 Analytics UI: http://18.232.169.254:5000
 
-docker-compose down
-docker volume prune
+git pull origin develop
+
+docker-compose up
+docker-compose up -d
+docker-compose down && docker volume prune
+
+
+rm -rf /home/ubuntu/.pm2/logs
+
+https://convertlive.com/u/convert/megabytes/to/bytes#500
 
 docker images
 
@@ -79,6 +87,8 @@ https://github.com/apache/druid/blob/0.22.0/distribution/docker/docker-compose.y
 CORS: https://druid.apache.org/docs/latest/design/auth.html
 
 Memory: https://druid.apache.org/docs/latest/operations/basic-cluster-tuning.html
+
+Zookeeper Doc: https://hub.docker.com/_/zookeeper
 
 # Linus
 chrome --disable-web-security --user-data-dir=~/chromeTemp
