@@ -1,7 +1,15 @@
 const { Kafka, logLevel } = require('kafkajs');
 const { v4: uuidv4 } = require('uuid');
 const faker = require('faker');
+
 const { CLOUD_KAFKA_MAX_PARTITION, CLOUD_KAFKA_TOPIC, CLOUD_KAFKA_BROKERS, CLOUD_KAFKA_USERNAME, CLOUD_KAFKA_PASSWORD, CLOUD_KAFKA_CLIENT_ID } = require("./config.js");
+
+function nanoseconds(time) {
+    if (!Array.isArray(time) || time.length !== 2) {
+        throw new TypeError('expected an array from process.hrtime()');
+    }
+    return +time[0] * 1e9 + +time[1];
+};
 
 // 4oxw1lld-default
 async function produce() {
@@ -26,41 +34,41 @@ async function produce() {
     let index = 1;
     // after the produce has connected, we start an interval timer
     let refreshIntervalId = setInterval(async () => {
-        if (index <= 1100000) { // 1125900 <= 1100000 // false
+        if (index <= 1000) { // 1125900 <= 1100000 // false
             try {
-                for (let i = 1; i <= 100; i++) {
-                    const producedData = await producer.send({
-                        topic: CLOUD_KAFKA_TOPIC,
-                        messages: [
-                            {
-                                value: JSON.stringify({
-                                    transactionId: uuidv4(),
-                                    customerId: getRandom("Customer", 10),
-                                    ownerId: getRandom("OwnerId", 10),
-                                    channel: getRandom("Channel", 4),
-                                    deviceType: getRandom("Device Type", 4),
-                                    tpn: getRandom("TPN", 1000),
-                                    amount: getRandomAmount(),
-                                    transactionDate: generateRandomDate(),
-                                    index: index,
-                                }),
-                                // partition: 1,
-                                partition: Math.floor(Math.random() * CLOUD_KAFKA_MAX_PARTITION),
-                            },
-                        ],
+                let messages = [];
+                let partition = Math.floor(Math.random() * CLOUD_KAFKA_MAX_PARTITION);
+                for (let i = 1; i <= 1000; i++) {
+                    messages.push({
+                        value: JSON.stringify({
+                            transactionId: uuidv4(),
+                            customerId: getRandom("Customer", 10),
+                            ownerId: getRandom("OwnerId", 10),
+                            channel: getRandom("Channel", 4),
+                            deviceType: getRandom("Device Type", 4),
+                            tpn: getRandom("TPN", 1000),
+                            amount: getRandomAmount(),
+                            transactionDate: generateRandomDate(),
+                            index: `${index}-${i}`,
+                            streamTime: nanoseconds(process.hrtime())
+                        }),
+                        partition,
                     });
-                    // if the message is written successfully, log it and increment `i`
-                    console.log(`Produced ${index} data ${JSON.stringify(producedData)}`);
-                    index++;
                 }
+                const producedData = await producer.send({
+                    topic: CLOUD_KAFKA_TOPIC,
+                    messages
+                });
+                // if the message is written successfully, log it and increment `i`
+                console.log(`Produced ${index} data ${JSON.stringify(producedData)}`);
+                index++;
             } catch (err) {
+                console.error("could not write message " + err);
                 clearInterval(refreshIntervalId);
-                console.error("could not write message " + err)
             }
         } else {
-            await producer.disconnect();
-            clearInterval(refreshIntervalId);
             console.log("Done");
+            clearInterval(refreshIntervalId);
         }
     }, 1000);
 }
