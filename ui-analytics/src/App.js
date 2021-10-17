@@ -1,83 +1,49 @@
-import React, { Component } from "react";
-import axios from 'axios';
-import { Button, Container, Row, Col, Card } from 'react-bootstrap';
-import { JsonToTable } from "react-json-to-table";
+import React, { Component } from 'react';
+
+import { Route, Switch } from 'react-router-dom';
+
+import ScrollToTopRoute from './ScrollToTopRoute';
+
+import AppLayout from './AppLayout';
+
+import Dashboard1 from './component/Dashboard1';
+import Dashboard2 from './component/Dashboard2';
+
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      jsonAllData: null,
-      jsonLastMonthData: null,
+    checkNot404 = pathname => {
+        const URLs = ["/", "/dashboard1", "/dashboard2"];
+        if (URLs.includes(pathname)) { // Static URLs
+            return true;
+        } else if (pathname.startsWith("/blog/")) { // Dynamic URLs
+            return true;
+        } else {
+            return false; // It's a 404
+        }
     }
-    this.baseURL = `/druid/v2/sql`; // ${window.location.host}
-  }
 
-  componentDidMount() {
-    // this.getDruidAllData();
-    // this.getDruidLastMonthData();
-  }
-
-  getDruidAllData = () => {
-    const thisClass = this;
-    axios.post(this.baseURL,
-      {
-        query: "SELECT COUNT(*) AS TotalRecords FROM transactions"
-      })
-      .then(response => {
-        thisClass.setState({ jsonAllData: JSON.stringify(response.data, null, 2) });
-      })
-      .catch(error => {
-        console.error('There was an error!', error);
-      });
-  }
-
-  getDruidLastMonthData = () => {
-    const thisClass = this;
-    axios.post(this.baseURL,
-      {
-        query: "SELECT amount, channel, customerId, deviceType,  ownerId, tpn, transactionDate FROM transactions LIMIT 10"
-      })
-      .then(response => {
-        thisClass.setState({ jsonLastMonthData: response.data });
-      })
-      .catch(error => {
-        console.error('There was an error!', error);
-      });
-  }
-
-  render() {
-    const { jsonAllData, jsonLastMonthData } = this.state;
-    return (
-      <Container fluid>
-        <br />
-        <Row>
-          <Col>
-            <Card>
-              <Card.Header as="h5">All Data <Button onClick={this.getDruidAllData} variant="primary">Get Data</Button></Card.Header>
-              <Card.Body>
-                <code>
-                  <pre>
-                    {jsonAllData}
-                  </pre>
-                </code>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col>
-            <Card>
-              <Card.Header as="h5">Last Month Data <Button onClick={this.getDruidLastMonthData} variant="primary">Get Data</Button></Card.Header>
-              <Card.Body>
-                <JsonToTable json={jsonLastMonthData} />
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col>
-          </Col>
-        </Row>
-      </Container>
-    )
-  }
+    render() {
+        return (
+            <Route render={({ location }) => (
+                <Switch location={location}>
+                    {this.checkNot404(location.pathname) &&
+                        <React.Fragment>
+                            <AppLayout>
+                                <ScrollToTopRoute exact path={`${process.env.PUBLIC_URL}/`} component={Dashboard1} />
+                                <ScrollToTopRoute exact path={`${process.env.PUBLIC_URL}/dashboard1`} component={Dashboard1} />
+                                <ScrollToTopRoute exact path={`${process.env.PUBLIC_URL}/dashboard2`} component={Dashboard2} />
+                            </AppLayout>
+                        </React.Fragment>
+                    }
+                    {!this.checkNot404(location.pathname) &&
+                        <React.Fragment>
+                            <h1>Not Found</h1>
+                        </React.Fragment>
+                    }
+                </Switch>
+            )} />
+        );
+    }
 }
 
 export default App;
