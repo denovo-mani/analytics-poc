@@ -37,18 +37,21 @@ druid_lookup_enableLookupSyncOnStartup=false
 #################### Common Functions Done #####################
 
 # Java tuning
-druid_indexer_runner_javaOptsArray=["-server", "-Xms8g", "-Xmx8g", "-XX:MaxDirectMemorySize=5g", "-XX:+ExitOnOutOfMemoryError", "-XX:+UseG1GC", "-Duser.timezone=UTC", "-Dfile.encoding=UTF-8", "-Djava.io.tmpdir=var/tmp", "-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager"]
+druid_indexer_runner_javaOptsArray=["-server", "-Xms4g", "-Xmx4g", "-XX:MaxDirectMemorySize=3g", "-XX:+ExitOnOutOfMemoryError", "-XX:+UseG1GC", "-Duser.timezone=UTC", "-Dfile.encoding=UTF-8", "-Djava.io.tmpdir=var/tmp", "-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager"]
+
+druid_service=druid/broker
+druid_plaintextPort=8082
 
 # HTTP server settings
-druid_server_http_numThreads=60
+druid_server_http_numThreads=50
 
 # HTTP client settings
-druid_broker_http_numConnections=50
-druid_broker_http_maxQueuedBytes=10MiB
+druid_broker_http_numConnections=40
+druid_broker_http_maxQueuedBytes=5MiB
 
 # Processing threads and buffers
 druid_processing_buffer_sizeBytes=500MiB
-druid_processing_numMergeBuffers=4
+druid_processing_numMergeBuffers=2
 druid_processing_numThreads=1
 druid_processing_tmpDir=var/druid/processing
 
@@ -57,7 +60,7 @@ druid_broker_cache_useCache=false
 druid_broker_cache_populateCache=false
 
 # Segment storage
-druid_segmentCache_locations=[{"path":"var/druid/segment-cache","maxSize":"60g"}]
+druid_segmentCache_locations=[{"path":"var/druid/segment-cache","maxSize":"50g"}]
 
 # Extras
 druid_auth_allowUnauthenticatedHttpOptions=true

@@ -37,15 +37,18 @@ druid_lookup_enableLookupSyncOnStartup=false
 #################### Common Functions Done #####################
 
 # Java tuning
-druid_indexer_runner_javaOptsArray=["-server", "-Xms8g", "-Xmx8g", "-XX:MaxDirectMemorySize=13g", "-XX:+ExitOnOutOfMemoryError", "-XX:+UseG1GC", "-Duser.timezone=UTC", "-Dfile.encoding=UTF-8", "-Djava.io.tmpdir=var/tmp", "-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager"]
+druid_indexer_runner_javaOptsArray=["-server", "-Xms4g", "-Xmx4g", "-XX:MaxDirectMemorySize=8g", "-XX:+ExitOnOutOfMemoryError", "-XX:+UseG1GC", "-Duser.timezone=UTC", "-Dfile.encoding=UTF-8", "-Djava.io.tmpdir=var/tmp", "-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager"]
+
+druid_service=druid/historical
+druid_plaintextPort=8083
 
 # HTTP server settings
-druid_server_http_numThreads=60
+druid_server_http_numThreads=50
 
 # Processing threads and buffers
 druid_processing_buffer_sizeBytes=500MiB
-druid_processing_numMergeBuffers=4
-druid_processing_numThreads=15
+druid_processing_numMergeBuffers=2
+druid_processing_numThreads=7
 druid_processing_tmpDir=var/druid/processing
 
 # Segment storage
@@ -55,10 +58,9 @@ druid_segmentCache_locations=[{"path":"var/druid/segment-cache","maxSize":"60g"}
 druid_historical_cache_useCache=true
 druid_historical_cache_populateCache=true
 druid_cache_type=caffeine
-druid_cache_sizeInBytes=500MiB
-
+druid_cache_sizeInBytes=256MiB
 # Extras
 druid_auth_allowUnauthenticatedHttpOptions=true
 
-druid_query_groupBy_maxOnDiskStorage=4
-druid_query_groupBy_maxMergingDictionarySize=300000000
+#druid_query_groupBy_maxOnDiskStorage=4
+#druid_query_groupBy_maxMergingDictionarySize=300000000
