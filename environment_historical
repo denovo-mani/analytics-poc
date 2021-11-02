@@ -36,8 +36,8 @@ druid_indexer_logs_directory=/opt/shared/indexing-logs
 # Service discovery
 #
 
-# druid_selectors_indexing_serviceName=druid/overlord
-# druid_selectors_coordinator_serviceName=druid/coordinator
+druid_selectors_indexing_serviceName=druid/overlord
+druid_selectors_coordinator_serviceName=druid/coordinator
 
 # Monitoring
 druid_monitoring_monitors=["org.apache.druid.java.util.metrics.JvmMonitor"]
@@ -60,8 +60,8 @@ druid_lookup_enableLookupSyncOnStartup=false
 # Java tuning
 druid_indexer_runner_javaOptsArray=["-server", "-Xms4g", "-Xmx4g", "-XX:MaxDirectMemorySize=8g", "-XX:+ExitOnOutOfMemoryError", "-XX:+UseG1GC", "-Duser.timezone=UTC", "-Dfile.encoding=UTF-8", "-Djava.io.tmpdir=var/tmp", "-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager"]
 
-#druid_service=druid/historical
-#druid_plaintextPort=8083
+druid_service=druid/historical
+druid_plaintextPort=8083
 
 # HTTP server settings
 druid_server_http_numThreads=50
@@ -80,6 +80,7 @@ druid_historical_cache_useCache=true
 druid_historical_cache_populateCache=true
 druid_cache_type=caffeine
 druid_cache_sizeInBytes=256MiB
+
 # Extras
 druid_auth_allowUnauthenticatedHttpOptions=true
 

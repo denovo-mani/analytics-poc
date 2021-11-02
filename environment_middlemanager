@@ -36,8 +36,8 @@ druid_indexer_logs_directory=/opt/shared/indexing-logs
 # Service discovery
 #
 
-# druid_selectors_indexing_serviceName=druid/overlord
-# druid_selectors_coordinator_serviceName=druid/coordinator
+druid_selectors_indexing_serviceName=druid/overlord
+druid_selectors_coordinator_serviceName=druid/coordinator
 
 # Monitoring
 druid_monitoring_monitors=["org.apache.druid.java.util.metrics.JvmMonitor"]
@@ -60,8 +60,8 @@ druid_lookup_enableLookupSyncOnStartup=false
 # Java tuning
 druid_indexer_runner_javaOptsArray=["-server", "-Xms128m", "-Xmx128m", "-XX:+ExitOnOutOfMemoryError", "-XX:+UseG1GC", "-Duser.timezone=UTC", "-Dfile.encoding=UTF-8", "-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager"]
 
-#druid_service=druid/middleManager
-#druid_plaintextPort=8091
+druid_service=druid/middleManager
+druid_plaintextPort=8091
 
 # Number of tasks per middleManager
 druid_worker_capacity=3

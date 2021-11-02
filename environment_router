@@ -36,8 +36,8 @@ druid_indexer_logs_directory=/opt/shared/indexing-logs
 # Service discovery
 #
 
-# druid_selectors_indexing_serviceName=druid/overlord
-# druid_selectors_coordinator_serviceName=druid/coordinator
+druid_selectors_indexing_serviceName=druid/overlord
+druid_selectors_coordinator_serviceName=druid/coordinator
 
 # Monitoring
 druid_monitoring_monitors=["org.apache.druid.java.util.metrics.JvmMonitor"]
@@ -60,8 +60,8 @@ druid_lookup_enableLookupSyncOnStartup=false
 # Java tuning
 druid_indexer_runner_javaOptsArray=["-server", "-Xms512m", "-Xmx512m", "-XX:+UseG1GC", "-XX:MaxDirectMemorySize=128m", "-XX:+ExitOnOutOfMemoryError", "-XX:+UseG1GC", "-Duser.timezone=UTC", "-Dfile.encoding=UTF-8", "-Djava.io.tmpdir=var/tmp", "-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager"]
 
-#druid_service=druid/router
-#druid_plaintextPort=8888
+druid_service=druid/router
+druid_plaintextPort=8888
 
 # HTTP proxy
 druid_router_http_numConnections=50
@@ -70,11 +70,11 @@ druid_router_http_numMaxThreads=100
 druid_server_http_numThreads=100
 
 # Service discovery
-#druid_router_defaultBrokerServiceName=druid/broker
-#druid_router_coordinatorServiceName=druid/coordinator
+druid_router_defaultBrokerServiceName=druid/broker
+druid_router_coordinatorServiceName=druid/coordinator
 
 # Management proxy to coordinator / overlord: required for unified web console.
-druid_router_managementProxy_enabled=false
+druid_router_managementProxy_enabled=true
 
 # Extras
 druid_auth_allowUnauthenticatedHttpOptions=true
