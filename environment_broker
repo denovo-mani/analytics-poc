@@ -36,7 +36,7 @@ druid_indexer_logs_directory=/opt/shared/indexing-logs
 # Service discovery
 #
 
-druid_selectors_indexing_serviceName=druid/overlord
+# druid_selectors_indexing_serviceName=druid/overlord
 druid_selectors_coordinator_serviceName=druid/coordinator
 
 # Monitoring

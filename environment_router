@@ -35,7 +35,7 @@ druid_indexer_logs_directory=/opt/shared/indexing-logs
 # Service discovery
 #
 
-druid_selectors_indexing_serviceName=druid/overlord
+# druid_selectors_indexing_serviceName=druid/overlord
 druid_selectors_coordinator_serviceName=druid/coordinator
 
 # Monitoring
@@ -69,11 +69,11 @@ druid_router_http_numMaxThreads=100
 druid_server_http_numThreads=100
 
 # Service discovery
-druid_router_defaultBrokerServiceName=broker
-druid_router_coordinatorServiceName=coordinator
+druid_router_defaultBrokerServiceName=druid/broker
+druid_router_coordinatorServiceName=druid/coordinator
 
 # Management proxy to coordinator / overlord: required for unified web console.
-druid_router_managementProxy_enabled=true
+druid_router_managementProxy_enabled=false
 
 # Extras
 druid_auth_allowUnauthenticatedHttpOptions=true

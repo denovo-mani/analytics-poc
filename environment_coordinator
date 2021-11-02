@@ -35,7 +35,7 @@ druid_indexer_logs_directory=/opt/shared/indexing-logs
 # Service discovery
 #
 
-druid_selectors_indexing_serviceName=druid/overlord
+# druid_selectors_indexing_serviceName=druid/overlord
 druid_selectors_coordinator_serviceName=druid/coordinator
 
 # Monitoring
@@ -66,9 +66,9 @@ druid_coordinator_startDelay=PT10S
 druid_coordinator_period=PT5S
 
 # Run the overlord service in the coordinator process
-druid_coordinator_asOverlord_enabled=true
-druid_coordinator_asOverlord_overlordService=druid/overlord
-druid_indexer_queue_startDelay=PT5S
+druid_coordinator_asOverlord_enabled=false
+# druid_coordinator_asOverlord_overlordService=druid/overlord
+# druid_indexer_queue_startDelay=PT5S
 
 druid_indexer_runner_type=remote
 druid_indexer_storage_type=metadata
