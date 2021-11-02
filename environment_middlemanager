@@ -28,6 +28,11 @@ druid_monitoring_monitors=["org.apache.druid.java.util.metrics.JvmMonitor"]
 druid_emitter=noop
 druid_emitter_logging_logLevel=info
 
+# Storage type of double columns
+# ommiting this will lead to index double as float at the storage layer
+
+druid_indexing_doubleStorage=double
+
 # SQL
 druid_sql_enable=true
 
