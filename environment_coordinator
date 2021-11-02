@@ -1,3 +1,4 @@
+
 DRUID_LOG4J=<?xml version="1.0" encoding="UTF-8"?><Configuration status="WARN"><Appenders><Console name="Console" target="SYSTEM_OUT"><PatternLayout pattern="%d{ISO8601} %p [%t] %c - %m%n"/></Console></Appenders><Loggers><Root level="info"><AppenderRef ref="Console"/></Root><Logger name="org.apache.druid.server.QueryLifecycle" level="info" additivity="false"><Appender-ref ref="Console"/></Logger><Logger name="org.apache.druid.server.coordinator" level="info" additivity="false"><Appender-ref ref="Console"/></Logger><Logger name="org.apache.druid.segment" level="info" additivity="false"><Appender-ref ref="Console"/></Logger><Logger name="org.apache.druid.initialization" level="info" additivity="false"><Appender-ref ref="Console"/></Logger><Logger name="org.skife.config" level="warn" additivity="false"><Appender-ref ref="Console"/></Logger><Logger name="com.sun.jersey.guice" level="warn" additivity="false"><Appender-ref ref="Console"/></Logger></Loggers></Configuration>
 
 druid_extensions_loadList=["druid-basic-security", "druid-bloom-filter", "druid-datasketches", "druid-hdfs-storage", "druid-histogram", "druid-parquet-extensions", "druid-kafka-extraction-namespace", "druid-kafka-indexing-service", "druid-kinesis-indexing-service", "druid-lookups-cached-global", "druid-lookups-cached-single", "druid-orc-extensions", "druid-stats", "druid-time-min-max", "druid-redis-cache", "kafka-emitter", "postgresql-metadata-storage", "druid-lookups-cached-global" ]
@@ -5,7 +6,7 @@ druid_extensions_loadList=["druid-basic-security", "druid-bloom-filter", "druid-
 #
 # Hostname
 #
-druid_host=localhost
+# druid_host=localhost
 
 # Logging
 # Log all runtime properties on startup Disable to avoid logging properties on startup:
@@ -36,7 +37,7 @@ druid_indexer_logs_directory=/opt/shared/indexing-logs
 #
 
 # druid_selectors_indexing_serviceName=druid/overlord
-druid_selectors_coordinator_serviceName=druid/coordinator
+# druid_selectors_coordinator_serviceName=druid/coordinator
 
 # Monitoring
 druid_monitoring_monitors=["org.apache.druid.java.util.metrics.JvmMonitor"]
@@ -59,19 +60,19 @@ druid_lookup_enableLookupSyncOnStartup=false
 # Java tuning
 druid_indexer_runner_javaOptsArray=["-server", "-Xms4500m", "-Xmx4500m", "-XX:+ExitOnOutOfMemoryError", "-XX:+UseG1GC", "-Duser.timezone=UTC", "-Dfile.encoding=UTF-8", "-Djava.io.tmpdir=var/tmp", "-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager", "-Dderby.stream.error.file=var/druid/derby.log"]
 
-druid_service=druid/coordinator
-druid_plaintextPort=8081
+# druid_service=druid/coordinator
+# druid_plaintextPort=8081
 
 druid_coordinator_startDelay=PT10S
 druid_coordinator_period=PT5S
 
 # Run the overlord service in the coordinator process
-druid_coordinator_asOverlord_enabled=false
+# druid_coordinator_asOverlord_enabled=false
 # druid_coordinator_asOverlord_overlordService=druid/overlord
-# druid_indexer_queue_startDelay=PT5S
+druid_indexer_queue_startDelay=PT5S
 
-druid_indexer_runner_type=remote
-druid_indexer_storage_type=metadata
+#druid_indexer_runner_type=remote
+#druid_indexer_storage_type=metadata
 
 # Extras
 druid_auth_allowUnauthenticatedHttpOptions=true
