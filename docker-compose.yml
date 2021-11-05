@@ -1,7 +1,7 @@
 version: "3.1"
 
 volumes:
-  metadata_data: {}
+  metadata_var: {}
   middle_var: {}
   historical_var: {}
   broker_var: {}
@@ -14,7 +14,7 @@ services:
     container_name: postgres
     image: postgres:latest
     volumes:
-      - metadata_data:/var/lib/postgresql/data
+      - metadata_var:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=druid
       - POSTGRES_USER=druid
