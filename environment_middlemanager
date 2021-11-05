@@ -6,7 +6,7 @@ druid_extensions_loadList=["druid-basic-security", "druid-bloom-filter", "druid-
 #
 # Hostname
 #
-# druid_host=localhost
+druid_host=localhost
 
 # Logging
 # Log all runtime properties on startup Disable to avoid logging properties on startup:
@@ -58,7 +58,7 @@ druid_lookup_enableLookupSyncOnStartup=false
 #################### Common Functions Done #####################
 
 # Java tuning
-druid_indexer_runner_javaOptsArray=["-server", "-Xms128m", "-Xmx128m", "-XX:+ExitOnOutOfMemoryError", "-XX:+UseG1GC", "-Duser.timezone=UTC", "-Dfile.encoding=UTF-8", "-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager"]
+druid_indexer_runner_javaOptsArray=["-server", "-Xms128m", "-Xmx128m", "-XX:+ExitOnOutOfMemoryError", "-XX:+UseG1GC", "-Duser.timezone=UTC", "-Dfile.encoding=UTF-8", "-Djava.io.tmpdir=var/tmp", "-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager"]
 
 druid_service=druid/middleManager
 druid_plaintextPort=8091

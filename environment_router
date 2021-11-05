@@ -6,7 +6,7 @@ druid_extensions_loadList=["druid-basic-security", "druid-bloom-filter", "druid-
 #
 # Hostname
 #
-# druid_host=localhost
+druid_host=localhost
 
 # Logging
 # Log all runtime properties on startup Disable to avoid logging properties on startup:
